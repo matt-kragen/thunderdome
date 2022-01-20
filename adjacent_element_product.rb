@@ -1,7 +1,8 @@
 # Return the largest product of two adjacent integers in the array
+# Hypothetical constraint: -1000 < return value < 1000
 
 def adj_prod(array)
-  max = 0
+  max = -1000
   i = 0
   while i < array.length - 1 do
     product = array[i] * array[i + 1]
