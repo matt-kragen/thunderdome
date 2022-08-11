@@ -2,20 +2,16 @@
 
 def timeConversion(s)
     split_str = s[0..-3].split(':')
-    if s[-2] == 'P'
-        if split_str[0] == '12'
+    if s[-2] == 'P' && split_str[0] == '12'
         return split_str.join(':')
-      else
+    elsif s[-2] == 'P'
         split_str[0] = split_str[0].to_i + 12
         return split_str.join(':')
-      end
-    else
-      if split_str[0] == '12'
+    elsif s[-2] == 'A' && split_str[0] == '12'
         split_str[0] = '00'
         return split_str.join(':')
-      else
+    else
         return split_str.join(':')
-      end
     end
 end
 
