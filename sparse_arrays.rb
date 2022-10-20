@@ -13,11 +13,9 @@
 def matchingStrings(strings, queries)
     result = []
     queries.each do |q|
-        count = 0
-        strings.each { |s| count +=1 if s == q }
-        result.push(count)
+        result.append(strings.count(q))
     end
-    result
+    return result
 end
 
 # Case 1
