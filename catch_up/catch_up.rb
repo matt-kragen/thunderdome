@@ -1,3 +1,5 @@
+require 'json'
+
 # For this challenge, you're going to write the OT validation function.
 # The function will take in a string for the stale file contents,
 # a string containing the latest file contents,
@@ -37,5 +39,29 @@ otjson5 = '[]'
 # true
 
 def isValid(stale, latest, otjson)
-  # Banana
+    return 'false' if stale == latest && otjson != '[]' || stale != latest && otjson == '[]'
+    return 'true' if stale == latest && otjson == '[]'
+    result = stale
+    cursor = 0
+    otjson = JSON.parse(otjson)
+    otjson.each do |operation|
+        case operation['op']
+        when 'skip'
+            return 'false, skip past end' if cursor + operation['count'] > result.length
+            cursor += operation['count']
+        when 'insert'
+            result.insert(cursor, operation['chars'])
+        when 'delete'
+            return 'false, delete past end' if cursor + operation['count'] > result.length
+            result.slice!(cursor, operation['count'])
+        end
+    end
+    return 'true' if result == latest
+    'false'
 end
+
+puts isValid(stale1, latest1, otjson1)
+puts isValid(stale2, latest2, otjson2)
+puts isValid(stale3, latest3, otjson3)
+puts isValid(stale4, latest4, otjson4)
+puts isValid(stale5, latest5, otjson5)
