@@ -1,5 +1,7 @@
 require 'json'
 
+# NOT SOLVED
+
 # For this challenge, you're going to write the OT validation function.
 # The function will take in a string for the stale file contents,
 # a string containing the latest file contents,
