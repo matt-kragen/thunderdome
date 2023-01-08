@@ -7,6 +7,10 @@
 
 # string: either 'pangram' or 'not pangram'
 
+# constraints:
+# 0 < len(s) < 10^3
+# s consists of English letters (i.e., a through z and A through Z) and spaces.
+
 def pangrams(s):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     for letter in alphabet:
