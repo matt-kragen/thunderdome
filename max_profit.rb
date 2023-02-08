@@ -1,60 +1,22 @@
-# Write a method/function that takes a time-ordered list of stock
-# prices for one particular company and returns the indices at which
-# the times you would buy/sell the stock in order to maximize profit.
+# Have the function ArrayChallenge(arr) take the array of numbers stored in arr which will contain integers that represent the amount in dollars that a single stock is worth, and return the maximum profit that could have been made by buying stock on day x and selling stock on day y where y > x. For example: if arr is [44, 30, 24, 32, 35, 30, 40, 38, 15] then your program should return 16 because at index 2 the stock was worth $24 and at index 6 the stock was then worth $40, so if you bought the stock at 24 and sold it at 40, you would have made a profit of $16, which is the maximum profit that could have been made with this list of stock prices.
 
-# Example: [30, 50, 10, 70] should return [2, 3]
-# Example: [30, 1000, 10, 70] should return [0, 1]
-# Example: [20, 10, 50, 100, 90, 10, 40, 70] should return [1, 3]
-# Example: [100, 10, 10, 10, 70] should return [3, 4]
-# Example: [100, 20, 100, 10, 20] should return [1, 2]
+# If there is not profit that could have been made with the stock prices, then your program should return -1. For example: arr is [10, 9, 8, 2] then your program should return -1.
+# Examples
+# Input: [10,12,4,5,9]
+# Output: 5
+# Input: [14,20,4,12,5,11]
+# Output: 8
 
-# Initial Attempt
-# def max_profit(arr)
-#   buy = 0
-#   sell = 0
-#   max_profit = 0
-#   arr.each_with_index do |buy_value, buy_index|
-#     arr.each.with_index(buy_index + 1) do |sell_value, sell_index|
-#       profit = sell_value - buy_value
-#       if profit > max_profit 
-#         max_profit = profit
-#         buy = buy_index
-#         sell = sell_index
-#       end
-#     end
-#   end
-#   [buy, sell]
-# end
-
-# Second Attempt
-def max_profit(arr)
-  buy = 0
-  sell = 0
-  max_profit = 0
-  arr.each_with_index do |buy_value, buy_index|
-    arr[buy_index + 1..-1].each_with_index do |sell_value, sell_index|
-      profit = sell_value - buy_value
-      if profit > max_profit 
-        max_profit = profit
-        buy = buy_index
-        sell = buy_index + sell_index + 1
-        # This took me a while to figure out, but I found that it was
-        # necessary to add the buy_index and 1 to the sell_index to
-        # account for the fact that we are starting at the index of the
-        # buy value
-      end
+def ArrayChallenge(arr)
+    max_profit = 0
+    arr.each_with_index do |buy, index|
+        arr[index + 1..-1].each do |sell|
+        profit = sell - buy
+        max_profit = profit if profit > max_profit
+        end
     end
-  end
-  [buy, sell]
+    max_profit > 0 ? max_profit : -1
 end
 
-a1 = [30, 50, 10, 70] 
-a2 = [30, 1000, 10, 70] 
-a3 = [20, 10, 50, 100, 90, 10, 40, 70] 
-a4 = [100, 10, 10, 10, 70] 
-a5 = [100, 20, 100, 10, 20] 
-p max_profit(a1) # should return [2, 3]
-p max_profit(a2) # should return [0, 1]
-p max_profit(a3) # should return [1, 3]
-p max_profit(a4) # should return [3, 4] but returns [1, 4], which technically references the same number (i.e. 10)
-p max_profit(a5) # should return [1, 2]
+p ArrayChallenge([10,12,4,5,9]) # 5
+p ArrayChallenge([14,20,4,12,5,11]) # 8
